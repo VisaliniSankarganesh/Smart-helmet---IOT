@@ -1,0 +1,64 @@
+#include <LiquidCrystal.h>
+LiquidCrystal lcd(8,9,10,11,12,13);
+
+#define key 2
+#define hel 5
+
+#define rly1 3
+#define alm 4
+//int beat2=2;
+
+void setup()
+{ 
+
+  pinMode(alm, OUTPUT);
+   pinMode(rly1, OUTPUT);     
+  pinMode(key, INPUT_PULLUP); 
+  pinMode(hel, INPUT);
+
+  digitalWrite(alm,LOW);
+  digitalWrite(rly1,LOW);  
+ 
+  lcd.begin(16, 2);
+  Serial.begin(9600);
+   lcd.setCursor(0, 0);
+  lcd.print("-----------------");
+  lcd.setCursor(0, 1);
+  lcd.print("-----------------");
+  delay(2000);
+  
+  lcd.setCursor(0, 0);
+  lcd.print("                ");
+  lcd.setCursor(0, 1);
+  lcd.print("                ");
+  
+}
+
+void loop()
+{
+
+  
+ if(digitalRead(key)==HIGH)
+ { 
+  lcd.setCursor(0,0);
+    lcd.print("KEY:ON          ");
+  if(digitalRead(hel)==LOW)
+  { 
+    lcd.setCursor(0,1);
+    lcd.print("HELMET:NOT FIXED"); 
+     digitalWrite(rly1,LOW); 
+      digitalWrite(alm,HIGH);  
+}
+else{lcd.setCursor(0,1);
+    lcd.print("HELMET:FIXED    "); 
+     digitalWrite(rly1,HIGH); 
+      digitalWrite(alm,LOW);}
+}
+else{
+  lcd.setCursor(0,0);
+    lcd.print("KEY:OFF         ");
+     lcd.setCursor(0,1);
+    lcd.print("                ");
+}
+
+}
